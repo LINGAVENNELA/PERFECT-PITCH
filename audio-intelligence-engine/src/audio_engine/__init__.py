@@ -22,7 +22,11 @@ Example:
     print(result["note"])  # e.g., "A4"
 """
 
-from .main import AudioEngine
+try:
+    from .main import AudioEngine
+except ImportError:  # pragma: no cover
+    AudioEngine = None
+
 from .recorder import AudioRecorder
 from .preprocessor import AudioPreprocessor
 from .pitch_detector.detector import PitchDetector
