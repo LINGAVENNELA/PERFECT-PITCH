@@ -21,5 +21,5 @@ def test_pipeline_detects_note_from_synthetic_signal():
     result = engine.process_audio(audio, sample_rate=sample_rate, expected_frequency=440.0)
 
     assert result["frequency_hz"] is not None
-    assert result["note"] == "A4"
-    assert result["score"] >= 0.0
+    assert result["note"]["note_name"] == "A4"
+    assert result["score"]["pitch_score"] >= 0

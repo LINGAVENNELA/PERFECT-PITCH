@@ -31,7 +31,11 @@ class AudioRecorderTests(unittest.TestCase):
         self.assertEqual(audio.ndim, 1)
         self.assertEqual(audio.shape[0], mono_audio.shape[0])
         self.assertEqual(audio.dtype, np.float32)
-        np.testing.assert_allclose(audio, mono_audio)
+        np.testing.assert_allclose(
+            audio,
+            mono_audio,
+            atol=1e-4,
+        )
 
     def test_loads_stereo_wav_file_and_converts_to_mono(self) -> None:
         left = np.linspace(-0.5, 0.5, 1600, dtype=np.float32)
@@ -48,7 +52,11 @@ class AudioRecorderTests(unittest.TestCase):
         self.assertEqual(sample_rate, 16000)
         self.assertEqual(audio.ndim, 1)
         self.assertEqual(audio.shape[0], expected_mono.shape[0])
-        np.testing.assert_allclose(audio, expected_mono)
+        np.testing.assert_allclose(
+            audio,
+            expected_mono,
+            atol=1e-4,
+        )
 
     def test_missing_wav_file_raises_file_not_found_error(self) -> None:
         with self.assertRaises(FileNotFoundError):

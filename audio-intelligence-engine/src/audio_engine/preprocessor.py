@@ -49,6 +49,24 @@ class AudioPreprocessor:
 
         return frames.astype(np.float32)
 
+    def preprocess_for_detection(
+        self,
+        audio: np.ndarray,
+    ) -> np.ndarray:
+        """Preprocess audio for pitch detection (returns 1D signal, no framing)."""
+
+        signal = self.validate_audio(audio)
+
+        signal = self.to_mono(signal)
+
+        signal = self.remove_dc_offset(signal)
+
+        signal = self.normalize(signal)
+
+        signal = self.trim_silence(signal)
+
+        return signal.astype(np.float32)
+
     def validate_audio(
         self,
         audio: np.ndarray,
